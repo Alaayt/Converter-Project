@@ -1,0 +1,22 @@
+{
+  "en": {
+    "youSend": "You send",
+    "youGet": "You get",
+    "enterAmount": "Enter Amount",
+    "from": "From",
+    "to": "To",
+    "startExchange": "Start Exchange",
+    "minAmount": "Minimum amount is" ,
+    "CurrencyConverter": "Currency Converter"
+  },
+  "ar": {
+    "youSend": "أنت ترسل",
+    "youGet": "ستحصل على",
+    "enterAmount": "أدخل المبلغ",
+    "from": "من",
+    "to": "إلى",
+    "startExchange": "صرف الآن",
+    "minAmount": "أقل مبلغ للصرف هو" ,
+    "CurrencyConverter": "تصريف مباشر" 
+  }
+}
