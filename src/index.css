@@ -1,4 +1,4 @@
-/* Import Google Font */
+/* Import Google FontAlaa */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
@@ -9,24 +9,24 @@
 }
 
 body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
+  background: url("./assets/bg.png") no-repeat center center;
+  background-size: cover; /* تغطي الشاشة كاملة */
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background: url("./assets/bg.png") #030728 no-repeat center; /* استيراد الصورة من src/assets */
-  background-size: cover; /* تجعل الخلفية تغطي الشاشة كاملة */
 }
 
-#root {
-  width: 100%;
-}
-
+/* العنصر نفسه */
 .currency-converter {
   max-width: 610px;
   margin: 0 auto;
   padding: 40px 30px 50px;
   border-radius: 8px;
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px); /* يجعل الخلفية ضبابية فقط خلف العنصر */
   background: rgba(2, 7, 40, 0.5); /* نصف شفاف */
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
