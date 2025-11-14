@@ -1,4 +1,4 @@
-import ConverterForm from "./components/ConverterForm"
+import ConverterForm from "./components/ConverterForm";
 
 const App = () => {
   return (
@@ -6,7 +6,7 @@ const App = () => {
       <h2 className="converter-title">Currency Converter</h2>
       <ConverterForm />
     </div>
-  )
-}
+  );
+};
 
 export default App;

@@ -1,20 +1,20 @@
-//import React from "react";
+import USDT from "../assets/logos/USDT.png";
+import Go from "../assets/logos/Go.png";
+import Zain from "../assets/logos/zain.png";
+import Qi from "../assets/logos/qi.png";
 
-// مصفوفة العملات مع روابط الصور
 const currencies = [
-  { code: "USDT (TRC20)", logo: "/logos/USDT.png" },
-  { code: "MoneyGo", logo: "/logos/Go.png" },
-  { code: "Zain Cash", logo: "/logos/zain.png" },
-  { code: "Al-Rafidain", logo: "/logos/qi.png" }
+  { code: "USDT (TRC20)", logo: USDT },
+  { code: "MoneyGo", logo: Go },
+  { code: "Zain Cash", logo: Zain },
+  { code: "Al-Rafidain", logo: Qi }
 ];
 
 const CurrencySelect = ({ selectedCurrency, handleCurrency }) => {
-  // العثور على الصورة الخاصة بالعملة المحددة حاليًا
   const selected = currencies.find(c => c.code === selectedCurrency);
 
   return (
     <div className="currency-select">
-      {/* شعار العملة المختارة */}
       {selected && (
         <img
           src={selected.logo}
@@ -27,8 +27,6 @@ const CurrencySelect = ({ selectedCurrency, handleCurrency }) => {
           }}
         />
       )}
-
-      {/* قائمة العملات */}
       <select
         onChange={handleCurrency}
         className="currency-dropdown"

@@ -3,7 +3,7 @@ import CurrencySelect from "./CurrencySelect";
 import translations from "./translations.json";
 
 const ConverterForm = () => {
-  const [lang, setLang] = useState("en"); // اللغة الحالية
+  const [lang, setLang] = useState("en");
   const t = translations[lang];
 
   const [amount, setAmount] = useState(100);
@@ -13,21 +13,18 @@ const ConverterForm = () => {
   const [rates, setRates] = useState(null);
   const [warning, setWarning] = useState("");
 
-  // تحميل الأسعار من ملف JSON خارجي
   useEffect(() => {
-    fetch("/rates.json")
+    fetch(`${import.meta.env.BASE_URL}rates.json`) // مسار ديناميكي حسب البيئة
       .then((res) => res.json())
       .then((data) => setRates(data))
       .catch((err) => console.error("خطأ في تحميل الأسعار:", err));
   }, []);
 
-  // توحيد أسماء العملات العراقية
   const normalizeCurrency = (currency) => {
     if (currency === "Zain Cash" || currency === "Al-Rafidain") return "IQD";
     return currency;
   };
 
-  // دالة حساب السعر
   const calculateExchange = (amount, from, to) => {
     if (!rates) return "جاري تحميل الأسعار...";
 
@@ -36,7 +33,6 @@ const ConverterForm = () => {
 
     const minAmount = rates[fromCur]?.minAmount || 0;
 
-    // تحقق من الحد الأدنى
     if (amount < minAmount) {
       setWarning(
         lang === "ar"
@@ -60,7 +56,6 @@ const ConverterForm = () => {
     return converted.toLocaleString(undefined, { maximumFractionDigits: 2 });
   };
 
-  // حساب السعر عند أي تغيير
   useEffect(() => {
     if (amount && fromCurrency && toCurrency) {
       const res = calculateExchange(amount, fromCurrency, toCurrency);
@@ -69,7 +64,6 @@ const ConverterForm = () => {
     }
   }, [amount, fromCurrency, toCurrency, rates, lang]);
 
-  // تبديل العملات
   const handleSwapCurrencies = () => {
     const temp = fromCurrency;
     setFromCurrency(toCurrency);
@@ -78,16 +72,14 @@ const ConverterForm = () => {
 
   return (
     <div style={{ direction: "ltr" }}>
-      {/* اختيار اللغة */}
       <select
-  value={lang}
-  onChange={(e) => setLang(e.target.value)}
-  className="language-select"
->
-  <option value="en">English</option>
-  <option value="ar">العربية</option>
-</select>
-
+        value={lang}
+        onChange={(e) => setLang(e.target.value)}
+        className="language-select"
+      >
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+      </select>
 
       <form className="converter-form" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
@@ -128,7 +120,6 @@ const ConverterForm = () => {
           </div>
         </div>
 
-        {/* رسالة الحد الأدنى */}
         {warning && <p className="warning-text">{warning}</p>}
 
         <p className="exchange-rate-result">{result}</p>

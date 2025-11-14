@@ -13,7 +13,8 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: url("bg.png") #030728 no-repeat center;
+  background: url("./assets/bg.png") #030728 no-repeat center; /* استيراد الصورة من src/assets */
+  background-size: cover; /* تجعل الخلفية تغطي الشاشة كاملة */
 }
 
 #root {
@@ -26,7 +27,7 @@ body {
   padding: 40px 30px 50px;
   border-radius: 8px;
   backdrop-filter: blur(30px);
-  background: rgba(2, 7, 40, 0.5);
+  background: rgba(2, 7, 40, 0.5); /* نصف شفاف */
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
