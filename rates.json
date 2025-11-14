@@ -1,0 +1,17 @@
+{
+  "USDT (TRC20)": {
+    "minAmount": 10,
+    "sell": { "IQD": 1440, "MoneyGo": 1.001 },
+    "buy": { "IQD": 1420, "MoneyGo": 0.999 }
+  },
+  "MoneyGo": {
+    "minAmount": 5,
+    "sell": { "USDT (TRC20)": 1.01, "IQD": 1445 },
+    "buy": { "USDT (TRC20)": 0.99, "IQD": 1425 }
+  },
+  "IQD": {
+    "minAmount": 10000,
+    "sell": { "USDT (TRC20)": 0.000694, "MoneyGo": 0.000692 },
+    "buy": { "USDT (TRC20)": 0.000702, "MoneyGo": 0.000699 }
+  }
+}
