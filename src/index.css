@@ -34,36 +34,35 @@ body {
 
 .currency-converter .converter-title {
   color: #fff;
-  font-size: 1.65rem;
+  font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
 }
 
 .currency-converter .converter-form {
-  margin-top: 45px;
+  margin-top: 30px;
 }
 
 .converter-form .form-group {
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   flex-direction: column;
 }
 
 .converter-form .form-group .form-label {
   color: #fff;
   font-weight: 500;
-  display: block;
-  margin-bottom: 9px;
-  font-size: 1rem;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
 }
 
 .converter-form .form-group .form-input {
   outline: none;
-  font-size: 1.1rem;
-  padding: 0 15px;
+  font-size: 1rem;
+  padding: 0 12px;
   color: #fff;
   font-weight: 500;
-  min-height: 48px;
+  min-height: 42px;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -73,20 +72,22 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .form-currency-group .currency-select {
   display: flex;
-  padding: 0 15px;
-  min-height: 45px;
   align-items: center;
+  padding: 0 10px;
+  min-height: 40px;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.5);
+  flex: 1;
 }
 
 .form-currency-group .currency-select img {
-  width: 25px;
+  width: 22px;
 }
 
 .form-currency-group .currency-select .currency-dropdown {
@@ -94,9 +95,10 @@ body {
   border: none;
   background: none;
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  padding: 0 10px 0 5px;
+  padding: 0 5px;
+  flex: 1;
 }
 
 .form-currency-group .currency-select .currency-dropdown option {
@@ -105,11 +107,11 @@ body {
 }
 
 .form-currency-group .swap-icon {
-  height: 40px;
-  width: 40px;
+  height: 36px;
+  width: 36px;
   cursor: pointer;
   display: flex;
-  margin-top: 25px;
+  margin-top: 18px;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
@@ -124,11 +126,11 @@ body {
 
 .converter-form .submit-button {
   width: 100%;
-  min-height: 52px;
+  min-height: 38px;
   border-radius: 6px;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   margin-top: 5px;
@@ -146,51 +148,67 @@ body {
 
 .converter-form .exchange-rate-result {
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   text-align: center;
-  padding: 20px 0;
-  margin-top: 20px;
+  padding: 15px 0;
+  margin-top: 15px;
   border-radius: 6px;
   letter-spacing: 0.5px;
   background: rgba(255, 255, 255, 0.15);
 }
 
-@media (max-width: 640px) {
-  body {
-    padding: 0 10px;
-  }
-
+@media (max-width: 480px) {
   .currency-converter {
-    padding: 30px 20px 40px;
+    padding: 20px 15px 25px;
   }
-  .currency-select {
-  display: flex;
-  align-items: center;
+  
+  .converter-form .form-group .form-label {
+    font-size: 0.9rem;
+  }
+  
+  .converter-form .form-group .form-input {
+    font-size: 0.9rem;
+    min-height: 38px;
+  }
+  
+  .form-currency-group {
+    flex-direction: column;
+  }
+  
+  .form-currency-group .swap-icon {
+    margin-top: 10px;
+  }
+  
+  .form-currency-group .currency-select {
+    width: 100%;
+  }
+  
+  .currency-converter .converter-title {
+    font-size: 1.4rem;
+  }
+  
+  .converter-form .exchange-rate-result {
+    font-size: 0.95rem;
+    padding: 12px 0;
+  }
 }
 
-}
 .exchange-button {
   display: block;
-  margin: 20px auto;
-  width: 60%;
+  margin: 15px auto;
+  width: 70%;
   text-align: center;
-  padding: 10px 0;
+  padding: 8px 0;
   background: linear-gradient(90deg, #5f6e72, #402866);
   color: white;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   border-radius: 8px;
   text-decoration: none;
   transition: 0.3s ease;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
-
-.exchange-button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, #494949, #4a5d61);
-}
-
 
 .exchange-button:hover {
   background: rgba(255, 255, 255, 0.3);
@@ -200,12 +218,12 @@ body {
 
 /* عرض أسعار الشراء والبيع */
 .rate-display {
-  margin-top: 8px;
+  margin-top: 6px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 0.9rem;
+  padding: 5px 8px;
+  font-size: 0.85rem;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -221,86 +239,49 @@ body {
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
 }
 
-/* تلوين الكلمات */
 .rate-display span.buy {
-  color: #4ade80; /* أخضر جميل */
+  color: #4ade80;
   font-weight: 600;
 }
 
 .rate-display span.sell {
-  color: #f87171; /* أحمر ناعم */
+  color: #f87171;
   font-weight: 600;
 }
-.warning-text {
-  color: #ffc107;
-  font-weight: 600;
-  text-align: center;
-  margin-top: 8px;
-  font-size: 0.95rem;
-}
 
-.exchange-button.disabled {
-  opacity: 0.6;
-  pointer-events: none;
-  cursor: not-allowed;
-}
-/* تأثير التحذير عند إدخال مبلغ أقل من الحد الأدنى */
-.input-warning {
-  border: 2px solid rgba(255, 0, 0, 0.7);
-  background-color: rgba(255, 0, 0, 0.05);
-  animation: shake 0.3s ease-in-out;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-}
-
-/* نص التحذير */
 .warning-text {
   color: #ff5555;
   font-weight: 600;
   text-align: center;
-  margin-top: 8px;
-  font-size: 0.95rem;
+  margin-top: 6px;
+  font-size: 0.85rem;
 }
 
-/* زر معطل */
-.exchange-button.disabled {
-  opacity: 0.5;
-  pointer-events: none;
-  cursor: not-allowed;
-}
 .language-select {
-  padding: 6px 4px;          /* المسافة الداخلية */
-  border-radius: 6px;         /* حواف مستديرة */
-  border: 1px solid rgba(255, 255, 255, 0.4); /* حد خارجي شفاف قليلاً */
-  background: rgba(255, 255, 255, 0.15);      /* خلفية نصف شفافة */
-  color: #fff;                 /* لون الخط */
-  font-weight: 600;            /* سماكة الخط */
-  font-size: 1rem;             /* حجم الخط */
-  cursor: pointer;             /* شكل المؤشر عند المرور */
-  backdrop-filter: blur(10px); /* تأثير التمويه */
-  transition: 0.25s ease;      /* حركة سلسة عند المرور */
-  outline: none;               /* إزالة الحدود الافتراضية */
+  padding: 5px 4px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: 0.25s ease;
+  outline: none;
 }
 
-/* عند فتح القائمة */
 .language-select option {
-  background-color: #333; /* خلفية الخيارات */
-  color: #fff;           /* لون الخط */
-}
-
-/* عند تمرير الماوس فوق خيار */
-.language-select option:hover {
-  background-color: #555; /* لون عند التمرير */
+  background-color: #333;
   color: #fff;
 }
 
-/* عند التركيز على الـ select */
+.language-select option:hover {
+  background-color: #555;
+  color: #fff;
+}
+
 .language-select:focus {
   outline: none;
-  border-color: #fff;    /* لون الإطار عند التركيز */
+  border-color: #fff;
 }

@@ -62,6 +62,7 @@ const ConverterForm = () => {
       if (res) setResult(`${amount} ${fromCurrency} = ${res} ${toCurrency}`);
       else setResult("");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [amount, fromCurrency, toCurrency, rates, lang]);
 
   const handleSwapCurrencies = () => {
@@ -124,10 +125,12 @@ const ConverterForm = () => {
 
         <p className="exchange-rate-result">{result}</p>
 
-        <a
-          href={`https://t.me/Alaayt?text=${encodeURIComponent(
-            `${t.startExchange}: ${amount} ${fromCurrency} → ${toCurrency}`
-          )}`}
+<a
+  href={`https://t.me/Alaayt?text=${encodeURIComponent(
+    lang === "ar"
+      ? `مرحباً، أريد بدء عملية تصريف \nالمبلغ ${amount}\nمن: ${fromCurrency}\nإلى: ${toCurrency}`
+      : `Hello, I want to start an exchange \nAmount: ${amount}\nFrom: ${fromCurrency}\nTo: ${toCurrency}`
+  )}`}
           target="_blank"
           rel="noopener noreferrer"
           className={`exchange-button ${warning ? "disabled" : ""}`}
