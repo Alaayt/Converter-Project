@@ -1,69 +1,105 @@
+
 import { useState, useEffect } from "react";
 import CurrencySelect from "./CurrencySelect";
 import translations from "./translations.json";
+import TopBar from "./TopBar";
+import CompanyLogo from "../assets/paygo.png";
 
 const ConverterForm = () => {
   const [lang, setLang] = useState("en");
   const t = translations[lang];
-  const [isSwapping, setIsSwapping] = useState(false);
+
   const [amount, setAmount] = useState(100);
   const [fromCurrency, setFromCurrency] = useState("USDT (TRC20)");
   const [toCurrency, setToCurrency] = useState("Zain Cash");
   const [result, setResult] = useState("");
-  const [rates, setRates] = useState(null);
+  const [isSwapping, setIsSwapping] = useState(false);
   const [warning, setWarning] = useState("");
 
-  useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}rates.json`) // مسار ديناميكي حسب البيئة
-      .then((res) => res.json())
-      .then((data) => setRates(data))
-      .catch((err) => console.error("خطأ في تحميل الأسعار:", err));
-  }, []);
-
-  const normalizeCurrency = (currency) => {
-    if (currency === "Zain Cash" || currency === "Al-Rafidain") return "IQD";
-    return currency;
+  // خريطة العملات
+  const currencyMap = {
+    "USDT (TRC20)": "USDT",
+    "MoneyGo": "MoneyGo",
+    "Zain Cash": "IQD",
+    "Al-Rafidain": "IQD",
+    "FIB": "IQD",
   };
+
+  // أسعار البيع والشراء
+  const moneyGoBuy = 1580;   // تشتري من العميل
+  const moneyGoSell = 1620;  // تبيع للعميل
+  const usdtBuy = 1580;
+  const usdtSell = 1520;
+
+  const minUsd = 2;
 
   const calculateExchange = (amount, from, to) => {
-    if (!rates) return "جاري تحميل الأسعار...";
-
-    const fromCur = normalizeCurrency(from);
-    const toCur = normalizeCurrency(to);
-
-    const minAmount = rates[fromCur]?.minAmount || 0;
-
-    if (amount < minAmount) {
-      setWarning(
-        lang === "ar"
-          ? ` ${fromCur} أقل مبلغ للصرف  ${minAmount}`
-          : `⚠️ Minimum amount for ${fromCur} is ${minAmount}`
-      );
-      return "";
-    } else {
+    const numericAmount = Number(amount);
+    if (!numericAmount || numericAmount <= 0) {
       setWarning("");
+      return "";
     }
 
-    if (fromCur === toCur) return amount;
+    const fromCur = currencyMap[from];
+    const toCur = currencyMap[to];
 
-    const isSellingToUs = fromCur !== "IQD";
-    const type = isSellingToUs ? "buy" : "sell";
+    // نفس العملة
+    if (from === to) return numericAmount;
 
-    const rate = rates[fromCur]?.[type]?.[toCur];
-    if (!rate) return lang === "ar" ? "السعر غير متاح" : "Rate not available";
+    // 💰 MoneyGo → IQD
+    if (fromCur === "MoneyGo" && toCur === "IQD") {
+      if (numericAmount < minUsd) {
+        setWarning("Minimum exchange amount is 2 USD");
+        return "";
+      }
+      setWarning("");
+      return (numericAmount * moneyGoBuy).toLocaleString();
+    }
 
-    const converted = amount * rate;
-    return converted.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    // 💸 IQD → MoneyGo
+    if (fromCur === "IQD" && toCur === "MoneyGo") {
+      const usd = numericAmount / moneyGoSell;
+      if (usd < minUsd) {
+        setWarning("Minimum exchange amount is 2 USD");
+        return "";
+      }
+      setWarning("");
+      return usd.toFixed(2);
+    }
+
+    // 💰 USDT → IQD
+    if (fromCur === "USDT" && toCur === "IQD") {
+      if (numericAmount < minUsd) {
+        setWarning("Minimum exchange amount is 2 USD");
+        return "";
+      }
+      setWarning("");
+      return (numericAmount * usdtBuy).toLocaleString();
+    }
+
+    // 💸 IQD → USDT
+    if (fromCur === "IQD" && toCur === "USDT") {
+      const usd = numericAmount / usdtSell;
+      if (usd < minUsd) {
+        setWarning("Minimum exchange is equivalent to 2 USD");
+        return "";
+      }
+      setWarning("");
+      return usd.toFixed(2);
+    }
+
+    setWarning("");
+    return "";
   };
 
+  // تحديث النتيجة عند تغيير القيم
   useEffect(() => {
     if (amount && fromCurrency && toCurrency) {
       const res = calculateExchange(amount, fromCurrency, toCurrency);
       if (res) setResult(`${amount} ${fromCurrency} = ${res} ${toCurrency}`);
       else setResult("");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, fromCurrency, toCurrency, rates, lang]);
+  }, [amount, fromCurrency, toCurrency, lang]);
 
   const handleSwapCurrencies = () => {
     const temp = fromCurrency;
@@ -77,10 +113,22 @@ const ConverterForm = () => {
         value={lang}
         onChange={(e) => setLang(e.target.value)}
         className="language-select"
+        style={{ marginBottom: "10px" }}
       >
         <option value="en">English</option>
         <option value="ar">العربية</option>
       </select>
+
+      <TopBar lang={lang} />
+
+      <div className="company-logo">
+        <img src={CompanyLogo} alt="Company Logo" style={{ marginBottom: "15px" }} />
+      </div>
+
+      <div className="market-live">
+        <span className="live-dot"></span>
+        {t.marketNote}
+      </div>
 
       <form className="converter-form" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
@@ -103,25 +151,18 @@ const ConverterForm = () => {
             />
           </div>
 
-<div
-  className={`swap-icon ${isSwapping ? "rotating" : ""}`}
-  onClick={() => {
-    setIsSwapping(true);
-    handleSwapCurrencies();
-    setTimeout(() => setIsSwapping(false), 400); // مدة الأنيميشن
-  }}
->
-  <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M7 17V3m0 0l-4 4m4-4l4 4M17 7v14m0 0l-4-4m4 4l4-4"
-      stroke="#fff"
-      strokeWidth="2"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-</div>
+          <div
+            className={`swap-icon ${isSwapping ? "rotating" : ""}`}
+            onClick={() => {
+              setIsSwapping(true);
+              handleSwapCurrencies();
+              setTimeout(() => setIsSwapping(false), 400);
+            }}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M7 17V3m0 0l-4 4m4-4l4 4M17 7v14m0 0l-4-4m4 4l4-4" />
+            </svg>
+          </div>
 
           <div className="form-section">
             <label className="form-label">{t.youGet}</label>
@@ -133,15 +174,21 @@ const ConverterForm = () => {
         </div>
 
         {warning && <p className="warning-text">{warning}</p>}
-
         <p className="exchange-rate-result">{result}</p>
 
-<a
-  href={`https://t.me/Alaayt?text=${encodeURIComponent(
-    lang === "ar"
-      ? `مرحباً، أريد بدء عملية تصريف \nالمبلغ ${amount}\nمن: ${fromCurrency}\nإلى: ${toCurrency}`
-      : `Hello, I want to start an exchange \nAmount: ${amount}\nFrom: ${fromCurrency}\nTo: ${toCurrency}`
-  )}`}
+        <a
+          href={
+            warning
+              ? "#"
+              : `https://t.me/alos_69?text=${encodeURIComponent(
+                  lang === "ar"
+                    ? `مرحباً، أريد بدء عملية تصريف \nالمبلغ ${amount}\nمن: ${fromCurrency}\nإلى: ${toCurrency}`
+                    : `Hello, I want to start an exchange \nAmount: ${amount}\nFrom: ${fromCurrency}\nTo: ${toCurrency}`
+                )}`
+          }
+          onClick={(e) => {
+            if (warning) e.preventDefault();
+          }}
           target="_blank"
           rel="noopener noreferrer"
           className={`exchange-button ${warning ? "disabled" : ""}`}

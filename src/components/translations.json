@@ -6,8 +6,11 @@
     "from": "From",
     "to": "To",
     "startExchange": "Start Exchange",
-    "minAmount": "Minimum amount is" ,
-    "CurrencyConverter": "Currency Converter"
+    "minAmount": "Minimum amount is",
+    "marketNote": "Rates are subject to market changes",
+    "contactMe": "Contact Me",
+    "rules": "Rules",
+    "about": "About Us"
   },
   "ar": {
     "youSend": "أنت ترسل",
@@ -16,7 +19,11 @@
     "from": "من",
     "to": "إلى",
     "startExchange": "صرف الآن",
-    "minAmount": "أقل مبلغ للصرف هو" ,
-    "CurrencyConverter": "تصريف مباشر" 
+    "minAmount": "أقل مبلغ للصرف هو",
+    "marketNote": "الأسعار قابلة للتغيير حسب السوق",
+    "contactMe": "تواصل معي",
+    "rules": "القوانين",
+    "about": "من نحن"
   }
 }
+

@@ -1,12 +1,15 @@
+
 import USDT from "../assets/logos/USDT.png";
 import Go from "../assets/logos/Go.png";
 import Zain from "../assets/logos/zain.png";
 import Qi from "../assets/logos/qi.png";
+import FIB from "../assets/logos/FIB.png";
 
 const currencies = [
   { code: "USDT (TRC20)", logo: USDT },
   { code: "MoneyGo", logo: Go },
   { code: "Zain Cash", logo: Zain },
+  { code: "FIB", logo: FIB },
   { code: "Al-Rafidain", logo: Qi }
 ];
 
